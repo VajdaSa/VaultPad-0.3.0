@@ -41,11 +41,9 @@ When someone calls `create_launch`, the following happens in a single atomic tra
 
 3. **90% of the supply** is deposited into the bonding curve vault, available for buyers to purchase.
 
-4. **10% is locked for the creator** with a randomized unlock timer between 1 and 24 hours. The exact duration is derived from the Solana slot number, timestamp, and the creator's public key. Nobody knows the exact unlock time until it happens.
+4. **A bonding curve is initialized** using constant-product (x*y=k) math with a 0.5 SOL virtual reserve. This sets the initial token price and ensures smooth price discovery as people buy in.
 
-5. **A bonding curve is initialized** using constant-product (x*y=k) math with a 0.5 SOL virtual reserve. This sets the initial token price and ensures smooth price discovery as people buy in.
-
-6. **For cause/charity tokens**: a charity wallet PDA is automatically derived. All creator fees (1% of every trade) flow into this wallet instead of the creator's personal wallet. Only the designated charity authority (linked to an X account off-chain) can withdraw.
+5. **For cause/charity tokens**: a charity wallet PDA is automatically derived. All creator fees (1% of every trade) flow into this wallet instead of the creator's personal wallet. Only the designated charity authority (linked to an X account off-chain) can withdraw.
 
 After this transaction confirms, the token is immediately tradeable. Anyone can call `buy` to purchase tokens or `sell` to sell them back.
 
